@@ -1,6 +1,7 @@
+.env
 node_modules
 package-lock.json
 playwright-report
-test-restults
+test-results
 .features-gen
 .vscode
