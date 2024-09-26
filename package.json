@@ -1,0 +1,19 @@
+{
+  "name": "gwcplaywright",
+  "version": "0.0.1",
+  "description": "Testing framework for Guidewire cloud using Playwright and BDD",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@faker-js/faker": "^9.0.2",
+    "@types/node": "^22.5.5",
+    "playwright-bdd": "^7.4.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}

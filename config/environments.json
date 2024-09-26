@@ -1,0 +1,8 @@
+{
+  "FMGNZDEV": {
+    "PC_URL": "https://pc-dev-fmgnzdev.fmgnz.alpha-1-ap-se-2.guidewire.net/PolicyCenter.do",
+    "CC_URL": "https://cc-dev-fmgnzdev.fmgnz.alpha-1-ap-se-2.guidewire.net/ClaimCenter.do",
+    "BC_URL": "https://bc-dev-fmgnzdev.fmgnz.alpha-1-ap-se-2.guidewire.net/BillingCenter.do",
+    "CM_URL": "https://cm-dev-fmgnzdev.fmgnz.alpha-1-ap-se-2.guidewire.net/ContactManager.do"
+  }
+}
