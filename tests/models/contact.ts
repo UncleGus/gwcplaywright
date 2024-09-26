@@ -15,7 +15,7 @@ export class Contact {
   noEmailAddressReason: NoEmailAddressReason;
   mailName: string;
 
-  constructor() {
+  constructor(data?: any) {
     const gender: "male" | "female" = Math.random() > 0.5 ? "male" : "female";
     if (gender == "male") {
       this.title = <Title>(
@@ -111,6 +111,11 @@ export class Contact {
       };
     }
     this.mailName = faker.person.firstName(gender);
+    if (data) {
+      for (const key in data) {
+        this[key] = data[key];
+      }
+    }
   }
 }
 

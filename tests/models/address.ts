@@ -15,7 +15,7 @@ export class Address {
   addressType: string;
   addressDecription: string;
 
-  constructor() {
+  constructor(data?: any) {
     this.careOfName = chance() ? faker.person.fullName() : null;
     this.propertyFarmName = chance() ? faker.company.name() : null;
     this.addressLine1 = faker.location.streetAddress();
@@ -32,5 +32,11 @@ export class Address {
     this.addressDecription = chance()
       ? faker.word.adjective() + " " + faker.word.noun()
       : null;
+
+    if (data) {
+      for (const key in data) {
+        this[key] = data[key];
+      }
+    }
   }
 }

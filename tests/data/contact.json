@@ -1,6 +1,8 @@
 {
-  "Farmer": {
+  "a farmer": {
     "contactSalutation": "Farmer"
   },
-  "Accountant": {}
+  "a doctor": {
+    "title": "Dr."
+  }
 }

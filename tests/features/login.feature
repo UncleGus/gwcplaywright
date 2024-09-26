@@ -23,6 +23,3 @@ Feature: Login functionality
       | ClaimCenter    |
       | BillingCenter  |
       | ContactManager |
-
-    Scenario: THing
-      Given the user is

@@ -25,35 +25,22 @@ Given(
 Given(
   "I enter contact information for {string}",
   async ({ createAccountPage }, contactPersona: string) => {
-    // create a new random contact
-    let contact = new Contact();
-    let useExistingContact: boolean = false;
+    let contact: Contact;
     switch (contactPersona.toLowerCase()) {
-      case "new contact":
-        // use the random contact as is
-        break;
-      case "any contact":
-        // flip a coin and either pull an existing contact or create a new one
-        if (chance()) {
-          useExistingContact = true;
-        }
+      case "a new contact":
+        contact = new Contact();
         break;
       default:
-        useExistingContact = true;
-    }
-    if (useExistingContact) {
-      const validContacts = Object.keys(contactData);
-      if (Object.keys(contactData).includes(contactPersona)) {
-        // use the existing persona details
-        for (const key in contactData[contactPersona]) {
-          contact[key] = contactData[contactPersona][key];
+        const validContacts = Object.keys(contactData);
+        if (!Object.keys(contactData).includes(contactPersona)) {
+          throw new Error(
+            `Invalid contact persona: "${contactPersona}"\nValid options are ${validContacts
+              .concat(["a new contact"])
+              .join(" | ")}"`
+          );
+        } else {
+          contact = new Contact(contactData[contactPersona]);
         }
-      }
-      throw new Error(
-        `Invalid contact persona: "${contactPersona}"\nValid options are ${validContacts
-          .concat(["New contact", "Any contact"])
-          .join(" | ")}"`
-      );
     }
     await createAccountPage.enterContactInformation(contact);
   }
@@ -62,34 +49,22 @@ Given(
 Given(
   "I enter address information for {string}",
   async ({ createAccountPage }, addressPreset) => {
-    let address = new Address();
-    let useExistingAddress: boolean = false;
+    let address: Address;
     switch (addressPreset) {
-      case "new address":
-        // use the random address as it is
-        break;
-      case "any address":
-        // flip a coin and either pull an existing contact or create a new one
-        if (chance()) {
-          useExistingAddress = true;
-        }
+      case "a new address":
+        address = new Address();
         break;
       default:
-        useExistingAddress = true;
     }
-    if (useExistingAddress) {
-      const validAddresses = Object.keys(addressData);
-      if (Object.keys(addressData).includes(addressPreset)) {
-        // use the existing preset details
-        for (const key in addressData[addressPreset]) {
-          address[key] = addressData[addressPreset][key];
-        }
-      }
+    const validAddresses = Object.keys(addressData);
+    if (!Object.keys(addressData).includes(addressPreset)) {
       throw new Error(
         `Invalid contact persona: "${addressPreset}"\nValid options are ${validAddresses
-          .concat(["New address", "Any address"])
+          .concat(["a new address"])
           .join(" | ")}"`
       );
+    } else {
+      address = new Address(addressData[addressPreset]);
     }
     await createAccountPage.enterAddressInformation(address);
   }
