@@ -63,6 +63,8 @@ export class CreateAccountPage extends PolicyCenterPage {
   addressIsRuralRadio = this.page.getByLabel("Address is rural?");
   addressTypeField = this.page.getByLabel("addressType");
   addressDescriptionField = this.page.getByLabel("Address Description");
+  receiveFmgPostRadio = this.page.getByLabel("Receive FMG Post");
+  fmgPostDeliveryMethod = this.page.getByLabel("FMG Post Delivery Method");
   accountTypeDropdown = this.page.locator(
     'select[name="CreateAccount-CreateAccountScreen-AccountClassificationDV-AccountFile_AccountTypeInputSet-AccountType"]'
   );
@@ -112,10 +114,11 @@ export class CreateAccountPage extends PolicyCenterPage {
       await this.phoneTypeDropdown(i).selectOption(
         contact.phoneNumbers[i].type
       );
-      await this.page.waitForTimeout(100);
+      await this.page.waitForTimeout(250);
       await this.phoneNumberField(i).pressSequentially(
         contact.phoneNumbers[i].number
       );
+
       await this.phoneNoteField(i).fill(contact.phoneNumbers[i].note || "");
       if (contact.phoneNumbers[i].isPrimary) {
         await this.phoneCheckBox(i).check();

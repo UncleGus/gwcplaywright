@@ -15,10 +15,11 @@ Given(
     await policyCenterPage.headerNav.accountMenu.newAccount.click();
     await enterAccountInformationPage.applicantName.fill("Gregory Griggs");
     await enterAccountInformationPage.page.keyboard.press("Enter");
-    await enterAccountInformationPage.selectFromDropdownMenu(
+    await enterAccountInformationPage.openUnreliableDropown(
       enterAccountInformationPage.createNewAccountButton,
       enterAccountInformationPage.createNewAccountMenu(accountType)
     );
+    await enterAccountInformationPage.createNewAccountMenu(accountType).click();
   }
 );
 
@@ -55,16 +56,16 @@ Given(
         address = new Address();
         break;
       default:
-    }
-    const validAddresses = Object.keys(addressData);
-    if (!Object.keys(addressData).includes(addressPreset)) {
-      throw new Error(
-        `Invalid contact persona: "${addressPreset}"\nValid options are ${validAddresses
-          .concat(["a new address"])
-          .join(" | ")}"`
-      );
-    } else {
-      address = new Address(addressData[addressPreset]);
+        const validAddresses = Object.keys(addressData);
+        if (!Object.keys(addressData).includes(addressPreset)) {
+          throw new Error(
+            `Invalid adress: "${addressPreset}"\nValid options are ${validAddresses
+              .concat(["a new address"])
+              .join(" | ")}"`
+          );
+        } else {
+          address = new Address(addressData[addressPreset]);
+        }
     }
     await createAccountPage.enterAddressInformation(address);
   }
@@ -80,11 +81,19 @@ Given(
 );
 
 Given(
-  "I complete all other mandatory account information",
+  "I complete all other mandatory Create Account data",
   async ({ createAccountPage, primaryActivitySearchPage }) => {
-    chance()
-      ? await createAccountPage.newClientRadio.getByLabel("Yes").click()
-      : await createAccountPage.newClientRadio.getByLabel("No").click();
+    if (chance()) {
+      await createAccountPage.receiveFmgPostRadio.getByLabel("Yes").click();
+      await createAccountPage.fmgPostDeliveryMethod
+        .getByLabel(chance() ? "Yes" : "No")
+        .click();
+    } else {
+      await createAccountPage.receiveFmgPostRadio.getByLabel("No").click();
+    }
+    await createAccountPage.newClientRadio
+      .getByLabel(chance() ? "Yes" : "No")
+      .click();
     await createAccountPage.primaryActivitySearchButton.click();
     await primaryActivitySearchPage
       .activitySelectButton("Abrasives mining")
@@ -102,3 +111,28 @@ When("I update the account", async ({ createAccountPage }) => {
 Then("I am shown the account summary", async ({ accountSummaryPage }) => {
   await accountSummaryPage.confirmNavigation();
 });
+
+Given(
+  "I am using an existing completed account",
+  async ({
+    policyCenterPage,
+    accountSummaryPage,
+    accountFileGeneralInsuranceQuestionsPage,
+    global,
+  }) => {
+    await policyCenterPage.headerNav.accountButton.click();
+    await accountSummaryPage.confirmNavigation();
+    global.currentAccountNumber =
+      await accountSummaryPage.accountNumberDisplay.innerText();
+    if (
+      (await accountSummaryPage.sideNav.questions.innerText()).includes(
+        "Incomplete"
+      )
+    ) {
+      await accountSummaryPage.sideNav.questions.click();
+
+      await accountFileGeneralInsuranceQuestionsPage.confirmNavigation();
+      await accountFileGeneralInsuranceQuestionsPage.answerAllNo();
+    }
+  }
+);

@@ -3,6 +3,36 @@
     "PC_URL": "https://pc-dev-fmgnzdev.fmgnz.alpha-1-ap-se-2.guidewire.net/PolicyCenter.do",
     "CC_URL": "https://cc-dev-fmgnzdev.fmgnz.alpha-1-ap-se-2.guidewire.net/ClaimCenter.do",
     "BC_URL": "https://bc-dev-fmgnzdev.fmgnz.alpha-1-ap-se-2.guidewire.net/BillingCenter.do",
-    "CM_URL": "https://cm-dev-fmgnzdev.fmgnz.alpha-1-ap-se-2.guidewire.net/ContactManager.do"
+    "CM_URL": "https://cm-dev-fmgnzdev.fmgnz.alpha-1-ap-se-2.guidewire.net/ContactManager.do",
+    "soldBy": [
+      "Commercial Consultant",
+      "Commercial Manager",
+      "Equine Insurance Consultant",
+      "Insurance Consultant",
+      "Mobile Rural Consultant",
+      "NSSC Consultant",
+      "Rural Consultant",
+      "Rural Manager",
+      "Senior Commercial Manager",
+      "Senior Rural Manager",
+      "Business Development Manager"
+    ]
+  },
+  "FMGNZQA2": {
+    "PC_URL": "https://pc-qa2-fmgnzdev.fmgnz.alpha-1-ap-se-2.guidewire.net/PolicyCenter.do",
+    "CC_URL": "https://cc-qa2-fmgnzdev.fmgnz.alpha-1-ap-se-2.guidewire.net/ClaimCenter.do",
+    "BC_URL": "https://bc-qa2-fmgnzdev.fmgnz.alpha-1-ap-se-2.guidewire.net/BillingCenter.do",
+    "CM_URL": "https://cm-qa2-fmgnzdev.fmgnz.alpha-1-ap-se-2.guidewire.net/ContactManager.do",
+    "soldBy": [
+      "Client Servicing Consultant",
+      "Commercial Insurance Consultant",
+      "Commercial Manager",
+      "Corporate Account Manager",
+      "Equine Insurance Consultant",
+      "Mobile Rural Consultant",
+      "Rural Acquisition Consultant",
+      "Rural Consultant",
+      "Rural Manager"
+    ]
   }
 }

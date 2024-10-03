@@ -3,6 +3,10 @@ import { PolicyCenterPage } from "../policyCenterPage";
 
 export class AccountSummaryPage extends PolicyCenterPage {
   titleText = /Guidewire PolicyCenter \(.+\) Account Summary:/;
+  infoBar = this.page.getByLabel("info bar");
+  accountNumberDisplay = this.page.locator('#AccountFile-AccountFileInfoBar-AccountNameAndNumber div[class="gw-label gw-infoValue"]');
+  currentAccountNumber: string;
+
   constructor(page: Page) {
     super(page);
   }

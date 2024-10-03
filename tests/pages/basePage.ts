@@ -14,24 +14,56 @@ export class BasePage {
     this.page = page;
   }
 
-  async confirmNavigation() {
-    await this.page.waitForFunction((matcher) => {
-      const currentTitleText = document.querySelector("title").innerText;
-      return currentTitleText.match(matcher);
-    }, this.titleText);
+  async confirmNavigation(timeout?: number) {
+    await this.page.waitForFunction(
+      (matcher) => {
+        const currentTitleText = document.querySelector("title").innerText;
+        return currentTitleText.match(matcher);
+      },
+      this.titleText,
+      { timeout }
+    );
   }
 
-  async selectFromDropdownMenu(
+  async openUnreliableDropown(
     dropdownElement: Locator,
-    optionElement: Locator
+    revealedElement: Locator
   ) {
-    while ((await dropdownElement.getAttribute("aria-expanded")) != "true") {
+    let attempts = 0;
+    while (!(await revealedElement.isVisible()) && attempts < 5) {
       await dropdownElement.click();
       await this.page.waitForTimeout(100);
+      attempts++;
     }
-    await optionElement.click();
-    while ((await dropdownElement.getAttribute("aria-expanded")) != "false") {
-      await dropdownElement.click();
+    if (attempts > 4) {
+      throw new Error(
+        `Made ${attempts} attempts at clicking this dropdown without success`
+      );
+    }
+  }
+
+  async setCheckboxWithResilience(element: Locator, checked: boolean) {
+    let attempts = 3;
+    while (attempts > 0) {
+      try {
+        checked ? await element.check() : await element.uncheck();
+        attempts = 0;
+      } catch (error) {
+        if (
+          error.message.includes(
+            "Clicking the checkbox did not change its state"
+          )
+        ) {
+          attempts--;
+          if (attempts < 1) {
+            throw new Error(
+              "Too many unsuccessful attempts at clicking the checkbox"
+            );
+          }
+        } else {
+          throw error;
+        }
+      }
     }
   }
 }
@@ -46,4 +78,14 @@ export type AccountType = "Person";
 
 export function chance(probability: number = 0.5) {
   return Math.random() < probability;
+}
+
+export function formatDate(date: Date) {
+  return (
+    ("0" + date.getDate().toString()).slice(-2) +
+    "/" +
+    ("0" + (date.getMonth() + 1).toString()).slice(-2) +
+    "/" +
+    date.getFullYear()
+  );
 }

@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { chance } from "../pages/basePage";
+import { chance, formatDate } from "../pages/basePage";
 
 export class Contact {
   title: Title;
@@ -39,13 +39,9 @@ export class Contact {
       this.preferredName = faker.person.firstName(gender);
     }
     this.contactSalutation = faker.person.prefix(gender);
-    const birthDate = faker.date.birthdate({ mode: "age", min: 18, max: 99 });
-    this.dateOfBirth =
-      ("0" + (birthDate.getDate() + 1).toString()).slice(-2) +
-      "/" +
-      ("0" + (birthDate.getMonth() + 1).toString()).slice(-2) +
-      "/" +
-      birthDate.getFullYear();
+    this.dateOfBirth = formatDate(
+      faker.date.birthdate({ mode: "age", min: 18, max: 99 })
+    );
     const numberOfPhones: number = Math.floor(Math.random() * 4) + 1;
     this.phoneNumbers = [];
     for (let i = 0; i < numberOfPhones; i++) {
@@ -156,7 +152,7 @@ type NoEmailAddressReason =
   | "Doesn't have email"
   | "Declined to provide";
 
-function makeNote() {
+export function makeNote() {
   return (
     faker.word.adjective() +
     " " +

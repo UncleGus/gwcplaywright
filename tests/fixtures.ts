@@ -8,14 +8,36 @@ import { EnterAccountInformationPage } from "./pages/policyCenter/account/enterA
 import { CreateAccountPage } from "./pages/policyCenter/account/createAccountPage";
 import { PrimaryActivitySearchPage } from "./pages/policyCenter/account/primaryActivitySearchPage";
 import { AccountSummaryPage } from "./pages/policyCenter/account/accountSummaryPage";
+import { NewSubmissionPage } from "./pages/policyCenter/policy/newSubmissionsPage";
+import { PolicyInfoPage } from "./pages/policyCenter/policy/policyInfoPage";
+import { Policy } from "./models/policy";
+import { LineSelectionPage } from "./pages/policyCenter/policy/lineSelectionPage";
+import { LocationsPage } from "./pages/policyCenter/policy/locationsPage";
+import { ContentsPage } from "./pages/policyCenter/policy/contentsPage";
+import { AccountFileGeneralInsuranceQuestionsPage } from "./pages/policyCenter/account/accountFileGeneralInsuranceQuestionsPage";
+import { NewClientCustomisedPricingEntryPage } from "./pages/policyCenter/policy/newClientCustomisedPricingEntryPage";
+import { QuotePage } from "./pages/policyCenter/policy/quotePage";
+import { BatchProcessInfoPage } from "./pages/policyCenter/policy/batchProcessInfoPage";
+import { MyActivitiesPage } from "./pages/policyCenter/desktop/myActivitiesPage";
 
 type PageFixtures = {
+  global: { currentAccountNumber?: string; policy?: Policy };
   policyCenterPage: PolicyCenterPage;
   policyCenterSummaryPage: MySummaryPage;
+  policyCenterMyActivitiesPage: MyActivitiesPage;
   enterAccountInformationPage: EnterAccountInformationPage;
   createAccountPage: CreateAccountPage;
   primaryActivitySearchPage: PrimaryActivitySearchPage;
   accountSummaryPage: AccountSummaryPage;
+  newSubmissionPage: NewSubmissionPage;
+  policyInfoPage: PolicyInfoPage;
+  lineSelectionPage: LineSelectionPage;
+  locationsPage: LocationsPage;
+  contentsPage: ContentsPage;
+  accountFileGeneralInsuranceQuestionsPage: AccountFileGeneralInsuranceQuestionsPage;
+  newClientCustomisedPricingEntryPage: NewClientCustomisedPricingEntryPage;
+  quotePage: QuotePage;
+  batchProcessInfoPage: BatchProcessInfoPage;
 
   claimCenterDesktopPage: ClaimCenterDesktopPage;
   billingCenterDesktopPage: BillingCenterDesktopPage;
@@ -23,11 +45,17 @@ type PageFixtures = {
 };
 
 export const test = base.extend<PageFixtures>({
+  global: async ({}, use) => {
+    await use({});
+  },
   policyCenterPage: async ({ page }, use) => {
     await use(new PolicyCenterPage(page));
   },
   policyCenterSummaryPage: async ({ page }, use) => {
     await use(new MySummaryPage(page));
+  },
+  policyCenterMyActivitiesPage: async ({ page }, use) => {
+    await use(new MyActivitiesPage(page));
   },
   enterAccountInformationPage: async ({ page }, use) => {
     await use(new EnterAccountInformationPage(page));
@@ -40,6 +68,33 @@ export const test = base.extend<PageFixtures>({
   },
   accountSummaryPage: async ({ page }, use) => {
     await use(new AccountSummaryPage(page));
+  },
+  newSubmissionPage: async ({ page }, use) => {
+    await use(new NewSubmissionPage(page));
+  },
+  policyInfoPage: async ({ page }, use) => {
+    await use(new PolicyInfoPage(page));
+  },
+  lineSelectionPage: async ({ page }, use) => {
+    await use(new LineSelectionPage(page));
+  },
+  locationsPage: async ({ page }, use) => {
+    await use(new LocationsPage(page));
+  },
+  contentsPage: async ({ page }, use) => {
+    await use(new ContentsPage(page));
+  },
+  accountFileGeneralInsuranceQuestionsPage: async ({ page }, use) => {
+    await use(new AccountFileGeneralInsuranceQuestionsPage(page));
+  },
+  newClientCustomisedPricingEntryPage: async ({ page }, use) => {
+    await use(new NewClientCustomisedPricingEntryPage(page));
+  },
+  quotePage: async ({ page }, use) => {
+    await use(new QuotePage(page));
+  },
+  batchProcessInfoPage: async ({ page }, use) => {
+    await use(new BatchProcessInfoPage(page));
   },
 
   claimCenterDesktopPage: async ({ page }, use) => {

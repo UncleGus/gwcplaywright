@@ -28,6 +28,7 @@ Then(
       claimCenterDesktopPage,
       billingCenterDesktopPage,
       contactManagerDesktopPage,
+      policyCenterMyActivitiesPage
     },
     centerName: CenterName
   ) => {
@@ -37,6 +38,7 @@ Then(
         claimCenterDesktopPage,
         billingCenterDesktopPage,
         contactManagerDesktopPage,
+        policyCenterMyActivitiesPage
       },
       centerName
     );
@@ -60,6 +62,7 @@ Given(
       claimCenterDesktopPage,
       billingCenterDesktopPage,
       contactManagerDesktopPage,
+      policyCenterMyActivitiesPage
     },
     centerName: CenterName,
     user: User
@@ -73,6 +76,7 @@ Given(
         claimCenterDesktopPage,
         billingCenterDesktopPage,
         contactManagerDesktopPage,
+        policyCenterMyActivitiesPage
       },
       centerName
     );
@@ -85,12 +89,20 @@ async function waitForDashboard(
     claimCenterDesktopPage,
     billingCenterDesktopPage,
     contactManagerDesktopPage,
+    policyCenterMyActivitiesPage
   },
   centerName: CenterName
 ) {
   switch (centerName.toLowerCase()) {
     case "policycenter":
-      await policyCenterSummaryPage.confirmNavigation();
+      switch (process.env.GALAXY) {
+        case "FMGNZDEV":
+          await policyCenterSummaryPage.confirmNavigation();
+          break;
+        case "FMGNZQA2":
+          await policyCenterMyActivitiesPage.confirmNavigation();
+          break;
+      }
       break;
     case "claimcenter":
       await claimCenterDesktopPage.confirmNavigation();

@@ -9,6 +9,6 @@ Scenario: View account summary - person type - residential
   And I enter contact information for "a new contact"
   And I enter address information for "a new address"
   And I enter account classification type of "Residential"
-  And I complete all other mandatory account information
+  And I complete all other mandatory Create Account data
   When I update the account
   Then I am shown the account summary

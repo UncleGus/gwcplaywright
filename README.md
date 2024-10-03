@@ -13,7 +13,7 @@ In a terminal window, run `npm i` to install the node modules, or do this via yo
 Install extensions needed for Visual Studio Code
 + Cucumber
 + Document This
-+ JavaScript and TypeSCript Nightly
++ JavaScript and TypeScript Nightly
 + Playwright Test for VSCode
 + Prettier
 
