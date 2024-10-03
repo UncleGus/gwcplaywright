@@ -86,7 +86,7 @@ Given(
     if (chance()) {
       await createAccountPage.receiveFmgPostRadio.getByLabel("Yes").click();
       await createAccountPage.fmgPostDeliveryMethod
-        .getByLabel(chance() ? "Yes" : "No")
+        .getByLabel(chance() ? "Email" : "Post")
         .click();
     } else {
       await createAccountPage.receiveFmgPostRadio.getByLabel("No").click();

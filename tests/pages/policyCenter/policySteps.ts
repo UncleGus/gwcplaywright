@@ -131,14 +131,12 @@ Given(
       await contentsPage.sideNav.newClientCustomisedPricingEntry.click();
 
       await newClientCustomisedPricingEntryPage.confirmNavigation();
-      if (process.env.GALAXY == "FMGNZDEV") {
-        if (
-          !(await newClientCustomisedPricingEntryPage.lossRatioField.inputValue())
-        ) {
-          await newClientCustomisedPricingEntryPage.lossRatioField.fill(
-            global.policy.lossRatio.toString()
-          );
-        }
+      if (
+        !(await newClientCustomisedPricingEntryPage.lossRatioField.inputValue())
+      ) {
+        await newClientCustomisedPricingEntryPage.lossRatioField.fill(
+          global.policy.lossRatio.toString()
+        );
       }
     }
 
