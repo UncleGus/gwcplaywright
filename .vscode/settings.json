@@ -2,5 +2,5 @@
   "cucumber.features": [
     
     "tests/features/**/*.feature"],
-  "cucumber.glue": ["tests/pages/**/*.ts"]
+  "cucumber.glue": ["tests/steps/**/*.ts"]
 }

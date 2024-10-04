@@ -77,28 +77,28 @@ export type CommercialContentsCoverableName =
 
 export type CommercialContentsCoverable = any;
 
-// export type FarmContentsCoverableName =
-//   | "General Farm Contents"
-//   | "Milk"
-//   | "Refrigerated Goods"
-//   | "Baled Hay"
-//   | "Harvested farm produce intended for sale"
-//   | "Baled Wool"
-//   | "Deer Velvet"
-//   | "Beehives"
-//   | "Drones";
+export type FarmContentsCoverableName =
+  | "General Farm Contents"
+  | "Milk"
+  | "Refrigerated Goods"
+  | "Baled Hay"
+  | "Harvested farm produce intended for sale"
+  | "Baled Wool"
+  | "Deer Velvet"
+  | "Beehives"
+  | "Drones";
 
-export enum FarmContentsCoverableName { // I can't remember why I turned this into an enum, I was experimenting with something
-  "General Farm Contents",
-  "Milk",
-  "Refrigerated Goods",
-  "Baled Hay",
-  "Harvested farm produce intended for sale",
-  "Baled Wool",
-  "Deer Velvet",
-  "Beehives",
-  "Drones",
-}
+// export enum FarmContentsCoverableName { // I can't remember why I turned this into an enum, I was experimenting with something
+//   "General Farm Contents",
+//   "Milk",
+//   "Refrigerated Goods",
+//   "Baled Hay",
+//   "Harvested farm produce intended for sale",
+//   "Baled Wool",
+//   "Deer Velvet",
+//   "Beehives",
+//   "Drones",
+// }
 
 export type FarmContentsCoverable = MilkContents;
 

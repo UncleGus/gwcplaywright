@@ -1,5 +1,5 @@
 import { Page } from "@playwright/test";
-import { BasePage } from "../basePage";
+import { BasePage } from "../generic/basePage";
 import { PolicyCenterHeaderNav } from "./policyCenterHeaderNav";
 import { PolicyCenterSideNav } from "./policyCenterSideNav";
 

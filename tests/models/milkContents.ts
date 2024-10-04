@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { chance } from "../pages/basePage";
+import { chance } from "../pages/generic/basePage";
 import { makeNote } from "./contact";
 import { ContentsCoverableName } from "./policy";
 import { Contents } from "./contents";

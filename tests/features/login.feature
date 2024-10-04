@@ -1,9 +1,9 @@
 Feature: Login functionality
 
   Scenario Outline: Valid login for <center>
-    Given the user is on the login page for "<center>"
-    When the user enters credentials for user "super user"
-    Then the user is taken to the "<center>" dashboard
+    Given the user is on the login page for <center>
+    When the user enters credentials for user Super user
+    Then the user is taken to the <center> dashboard
 
     Examples:
       | center         |
@@ -13,7 +13,7 @@ Feature: Login functionality
       | ContactManager |
 
   Scenario Outline: Invalid login for <center>
-    Given the user is on the login page for "<center>"
+    Given the user is on the login page for <center>
     When the user enters invalid credentials
     Then the user should be shown an error message
 

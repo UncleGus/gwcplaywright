@@ -1,6 +1,6 @@
 import { Locator, Page } from "@playwright/test";
 import { PolicyCenterPage } from "../policyCenterPage";
-import { AccountType } from "../../basePage";
+import { AccountType } from "../../generic/basePage";
 
 export class EnterAccountInformationPage extends PolicyCenterPage {
   applicantName = this.page.getByLabel("Name", { exact: true });

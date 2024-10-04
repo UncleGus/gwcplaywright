@@ -8,25 +8,25 @@ import {
   PolicyType,
   TermType,
 } from "../../models/policy";
-import { formatDate } from "../basePage";
+import { formatDate } from "../../pages/generic/basePage";
 
 Given("I have a policy", async ({ global }) => {
   global.policy = global.policy || new Policy();
 });
 
 Given(
-  /the policy type is "(Renewing|Non renewing)"/,
+  /the policy type is (Renewing|Non renewing)/,
   async ({ global }, policyType: string) => {
     global.policy.policyType = <PolicyType>policyType;
   }
 );
 
-Given(/the term type is "(Annual|Other)"/, ({ global }, termType: string) => {
+Given(/the term type is (Annual|Other)/, ({ global }, termType: string) => {
   global.policy.termType = <TermType>termType;
 });
 
 Given(
-  "the policy expiration date is {int} days in the future",
+  /the policy expiration date is (\d+) days in the future/,
   async ({ global }, days: number) => {
     global.policy.transactionEffectiveDate = formatDate(
       new Date(
@@ -39,18 +39,15 @@ Given(
 );
 
 Given(
-  /the policy has Buildings and Contents coverable "(Buildings and Structures|Contents|Business Interruption|Contract Works)"/,
+  /the policy has Buildings and Contents coverable (Buildings and Structures|Contents|Business Interruption|Contract Works)/,
   async ({ global }, coverable: string) => {
     // for some reason, cucumber can't handle a .push() call and marks the step in the feature as undefined, but .concat() seems to work
-    global.policy.buildingsAndContentsCoverables =
-      global.policy.buildingsAndContentsCoverables.concat([
-        <BuildingsAndContentsCoverableName>coverable,
-      ]);
+    global.policy.buildingsAndContentsCoverables.push(<BuildingsAndContentsCoverableName>coverable)
   }
 );
 
 Given(
-  "the policy has a coverage of type {string}",
+  /the policy has a coverage of type (General Farm Contents|Milk|Refrigerated Goods|Baled Hay|Harvested farm produce intended for sale|Baled Wool|Deer Velvet|Beehives|Drones)/,
   async ({ global }, coverable: string) => {
     switch (coverable) {
       case "Milk":
@@ -59,9 +56,7 @@ Given(
             (member) => member == "Contents"
           )
         ) {
-          // for some reason, cucumber can't handle a .push() call and marks the step in the feature as undefined, but .concat() seems to work
-          global.policy.buildingsAndContentsCoverables =
-            global.policy.buildingsAndContentsCoverables.concat(["Contents"]);
+          global.policy.buildingsAndContentsCoverables.push("Contents");
         }
         const milkData = coverablesData["milk"].find(
           (datum) => datum["farm owner in sharemilking agreement"]

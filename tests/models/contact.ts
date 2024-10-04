@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { chance, formatDate } from "../pages/basePage";
+import { chance, formatDate } from "../pages/generic/basePage";
 
 export class Contact {
   title: Title;

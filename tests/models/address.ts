@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 import postCodes from "../data/postcodes.json";
-import { chance } from "../pages/basePage";
+import { chance } from "../pages/generic/basePage";
 
 export class Address {
   careOfName: string;

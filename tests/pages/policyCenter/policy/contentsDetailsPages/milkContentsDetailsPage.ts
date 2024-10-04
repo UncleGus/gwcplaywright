@@ -1,7 +1,7 @@
 import { Page } from "@playwright/test";
 import { ContentsDetailsPage } from "./contentsDetailsPage";
 import { ContentsCoverableName, Policy } from "../../../../models/policy";
-import { OkCancelButtons } from "../../../okCancelButtons";
+import { OkCancelButtons } from "../../../generic/okCancelButtons";
 
 export class MilkContentsDetailsPage extends ContentsDetailsPage {
   okCancelButtons = new OkCancelButtons(this.page);
