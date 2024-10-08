@@ -1,7 +1,7 @@
 import { expect, Locator, Page } from "@playwright/test";
 import users from "../../data/user.json";
 import environments from "../../../config/environments.json";
-import { BasePage, CenterName, User } from "../generic/basePage";
+import { BasePage, CenterName, User } from "./basePage";
 
 export class LoginPage extends BasePage {
   url: string;

@@ -19,9 +19,14 @@ import { NewClientCustomisedPricingEntryPage } from "./pages/policyCenter/policy
 import { QuotePage } from "./pages/policyCenter/policy/quotePage";
 import { BatchProcessInfoPage } from "./pages/policyCenter/policy/batchProcessInfoPage";
 import { MyActivitiesPage } from "./pages/policyCenter/desktop/myActivitiesPage";
+import { PaymentPage } from "./pages/policyCenter/policy/paymentPage";
+import { BankDetailsPage } from "./pages/policyCenter/policy/bankDetailsPage";
+import { PolicyCompletedPage } from "./pages/policyCenter/policy/policyCompletedPage";
+import { PolicySummaryPage } from "./pages/policyCenter/policy/policySummaryPage";
+import { WorkOrdersPage } from "./pages/policyCenter/policy/workOrdersPage";
 
-type PageFixtures = {
-  global: { currentAccountNumber?: string; policy?: Policy };
+export type PageFixtures = {
+  globalData: { currentAccountNumber?: string; policy?: Policy };
   policyCenterPage: PolicyCenterPage;
   policyCenterSummaryPage: MySummaryPage;
   policyCenterMyActivitiesPage: MyActivitiesPage;
@@ -38,6 +43,11 @@ type PageFixtures = {
   newClientCustomisedPricingEntryPage: NewClientCustomisedPricingEntryPage;
   quotePage: QuotePage;
   batchProcessInfoPage: BatchProcessInfoPage;
+  paymentPage: PaymentPage;
+  bankDetailsPage: BankDetailsPage;
+  policyCompletedPage: PolicyCompletedPage;
+  policySummaryPage: PolicySummaryPage;
+  workOrdersPage: WorkOrdersPage;
 
   claimCenterDesktopPage: ClaimCenterDesktopPage;
   billingCenterDesktopPage: BillingCenterDesktopPage;
@@ -45,7 +55,7 @@ type PageFixtures = {
 };
 
 export const test = base.extend<PageFixtures>({
-  global: async ({}, use) => {
+  globalData: async ({}, use) => {
     await use({});
   },
   policyCenterPage: async ({ page }, use) => {
@@ -92,6 +102,21 @@ export const test = base.extend<PageFixtures>({
   },
   quotePage: async ({ page }, use) => {
     await use(new QuotePage(page));
+  },
+  paymentPage: async ({ page }, use) => {
+    await use(new PaymentPage(page));
+  },
+  bankDetailsPage: async ({ page }, use) => {
+    await use(new BankDetailsPage(page));
+  },
+  policyCompletedPage: async ({ page }, use) => {
+    await use(new PolicyCompletedPage(page));
+  },
+  policySummaryPage: async ({ page }, use) => {
+    await use(new PolicySummaryPage(page));
+  },
+  workOrdersPage: async ({ page }, use) => {
+    await use(new WorkOrdersPage(page));
   },
   batchProcessInfoPage: async ({ page }, use) => {
     await use(new BatchProcessInfoPage(page));

@@ -1,34 +1,38 @@
 import { expect } from "@playwright/test";
-import { Given, When, Then } from "../../fixtures";
-import { MilkContents } from "../../models/milkContents";
-import coverablesData from "../../data/coverables.json";
+import { Given, When, Then } from "../../../fixtures";
+import { MilkContents } from "../../../models/milkContents";
+import coverablesData from "../../../data/coverables.json";
 import {
   BuildingsAndContentsCoverableName,
   Policy,
   PolicyType,
   TermType,
-} from "../../models/policy";
-import { formatDate } from "../../pages/generic/basePage";
+} from "../../../models/policy";
+import { formatDate } from "../../../pages/generic/basePage";
+import { faker } from "@faker-js/faker";
 
-Given("I have a policy", async ({ global }) => {
-  global.policy = global.policy || new Policy();
+Given("I have a policy", async ({ globalData }) => {
+  globalData.policy = globalData.policy || new Policy();
 });
 
 Given(
   /the policy type is (Renewing|Non renewing)/,
-  async ({ global }, policyType: string) => {
-    global.policy.policyType = <PolicyType>policyType;
+  async ({ globalData }, policyType: string) => {
+    globalData.policy.policyType = <PolicyType>policyType;
   }
 );
 
-Given(/the term type is (Annual|Other)/, ({ global }, termType: string) => {
-  global.policy.termType = <TermType>termType;
-});
+Given(
+  /the term type is (Annual|Other)/,
+  ({ globalData }, termType: string) => {
+    globalData.policy.termType = <TermType>termType;
+  }
+);
 
 Given(
   /the policy expiration date is (\d+) days in the future/,
-  async ({ global }, days: number) => {
-    global.policy.transactionEffectiveDate = formatDate(
+  async ({ globalData }, days: number) => {
+    globalData.policy.transactionEffectiveDate = formatDate(
       new Date(
         new Date(new Date().setDate(new Date().getDate() + days)).setFullYear(
           new Date().getFullYear() - 1
@@ -40,15 +44,16 @@ Given(
 
 Given(
   /the policy has Buildings and Contents coverable (Buildings and Structures|Contents|Business Interruption|Contract Works)/,
-  async ({ global }, coverable: string) => {
+  async ({ globalData }, coverable: string) => {
     // for some reason, cucumber can't handle a .push() call and marks the step in the feature as undefined, but .concat() seems to work
-    global.policy.buildingsAndContentsCoverables.push(<BuildingsAndContentsCoverableName>coverable)
+    globalData.policy.buildingsAndContentsCoverables.push(
+      <BuildingsAndContentsCoverableName>coverable
+    );
   }
 );
-
 Given(
   /the policy has a coverage of type (General Farm Contents|Milk|Refrigerated Goods|Baled Hay|Harvested farm produce intended for sale|Baled Wool|Deer Velvet|Beehives|Drones)/,
-  async ({ global }, coverable: string) => {
+  async ({ globalData }, coverable: string) => {
     switch (coverable) {
       case "Milk":
         if (
@@ -56,12 +61,9 @@ Given(
             (member) => member == "Contents"
           )
         ) {
-          global.policy.buildingsAndContentsCoverables.push("Contents");
+          globalData.policy.buildingsAndContentsCoverables.push("Contents");
         }
-        const milkData = coverablesData["milk"].find(
-          (datum) => datum["farm owner in sharemilking agreement"]
-        )["farm owner in sharemilking agreement"];
-        global.policy.farmContentsCoverables.push(new MilkContents(milkData));
+        globalData.policy.farmContentsCoverables.push(new MilkContents());
     }
   }
 );
@@ -69,15 +71,18 @@ Given(
 Given(
   "the policy defined in the background",
   async ({
+    globalData,
     policyCenterPage,
     newSubmissionPage,
-    global,
     policyInfoPage,
     lineSelectionPage,
     locationsPage,
     contentsPage,
     newClientCustomisedPricingEntryPage,
     quotePage,
+    paymentPage,
+    bankDetailsPage,
+    policyCompletedPage,
   }) => {
     await policyCenterPage.headerNav.policyExpander.click();
     await policyCenterPage.headerNav.policyMenu.newSubmission.click();
@@ -127,37 +132,52 @@ Given(
 
       await newClientCustomisedPricingEntryPage.confirmNavigation();
       if (
-        !(await newClientCustomisedPricingEntryPage.lossRatioField.inputValue())
+        (await newClientCustomisedPricingEntryPage.lossRatioReadOnly.isVisible()) ||
+        (await newClientCustomisedPricingEntryPage.lossRatioField.inputValue())
       ) {
+        // loss ratio is already present
+      } else {
         await newClientCustomisedPricingEntryPage.lossRatioField.fill(
-          global.policy.lossRatio.toString()
+          globalData.policy.lossRatio.toString()
         );
       }
     }
 
-    // multiple attempts needed for existing bug
-    let attempts = 5;
-    while (attempts > 0)
-      try {
-        await newClientCustomisedPricingEntryPage.createSubmissionNav.quoteButton.click();
-        await quotePage.confirmNavigation(3000);
-        attempts = 0;
-      } catch (error) {
-        if (
-          !(await newClientCustomisedPricingEntryPage.page
-            .getByText("An invalid quote was")
-            .isVisible())
-        ) {
-          throw error;
-        } else {
-          attempts--;
-          if (attempts < 1) {
-            throw new Error(
-              `Too many unsuccessful attempts at creating a quote`
-            );
-          }
-        }
-      }
+    await newClientCustomisedPricingEntryPage.performUnreliableAction({
+      elementToClick:
+        newClientCustomisedPricingEntryPage.createSubmissionNav.quoteButton,
+      validationFunction: quotePage.confirmNavigation(3000),
+      numberOfAttempts: 5,
+    });
+
+    await quotePage.sideNav.payment.click();
+
+    await paymentPage.confirmNavigation();
+    await paymentPage.invoicingRadioNew.click();
+    await paymentPage.addButton.click();
+
+    await bankDetailsPage.confirmNavigation();
+    await bankDetailsPage.bankAccountNameField.fill(
+      faker.person.firstName() + " " + faker.person.lastName()
+    );
+    await bankDetailsPage.enterBankAccountNumber();
+    await bankDetailsPage.updateButton.click();
+
+    await paymentPage.confirmNavigation();
+    await expect(async () => {
+      await paymentPage.page.reload();
+      await paymentPage.mostRecentAccountRadio.click();
+    }).toPass();
+    // await paymentPage.performUnreliableAction({
+    //   elementToClick: paymentPage.mostRecentAccountRadio,
+    //   errorFunction: paymentPage.page.reload(),
+    //   timeout: 1000,
+    // });
+    paymentPage.page.on("dialog", (dialog) => dialog.accept());
+    await paymentPage.issuePolicyButton.click();
+
+    await policyCompletedPage.confirmNavigation();
+    globalData.policy.number = await policyCompletedPage.getPolicyNumber();
   }
 );
 
@@ -193,3 +213,7 @@ When(
     await policyCenterSummaryPage.headerNav.accountButton.click();
   }
 );
+
+Then("the policy is renewed", () => {
+  // Write code here that turns the phrase above into concrete actions
+});

@@ -1,4 +1,4 @@
-import { Page } from "@playwright/test";
+import test, { Page } from "@playwright/test";
 import { ContentsDetailsPage } from "./contentsDetailsPage";
 import { ContentsCoverableName, Policy } from "../../../../models/policy";
 import { OkCancelButtons } from "../../../generic/okCancelButtons";
@@ -61,7 +61,7 @@ export class MilkContentsDetailsPage extends ContentsDetailsPage {
     );
     await this.contentsIsMigratedRadio(details.contentsIsMigrated).click();
     if (details.clientDescription) {
-      await this.clientDescriptionField.fill(details.clientDescription);
+      await this.clientDescriptionField.fill(details.clientDescription);  // Flaky: doesnt' always reveal the sharemilking agreement field
     }
     await this.page.waitForTimeout(250);
     await this.typeOfOperatorDropdown.selectOption(details.typeOfOperator);
@@ -71,10 +71,11 @@ export class MilkContentsDetailsPage extends ContentsDetailsPage {
       );
     }
     await this.additionalDetailsField.fill(details.additionalDetails || "");
-    await this.openUnreliableDropown(
-      this.locationOfMilkExpander,
-      this.newLocationOption
-    );
+    await this.performUnreliableAction({
+      elementToClick: this.locationOfMilkExpander,
+      elementToLookFor: this.newLocationOption,
+      timeout: 1000
+    });
     if (details.locationOfMilk?.toLowerCase() != "new location") {
       await this.existingLocationOption.hover();
       if (details.locationOfMilk) {
@@ -103,26 +104,44 @@ export class MilkContentsDetailsPage extends ContentsDetailsPage {
     if (details.voluntaryExcess) {
       await this.voluntaryExcessDropdown.selectOption(details.voluntaryExcess);
     }
-    await this.setCheckboxWithResilience(
-      this.nonCollectionCheckbox,
-      details.nonCollection
-    );
+    if (details.nonCollection) {
+      await this.performUnreliableAction({
+        elementToCheck: this.nonCollectionCheckbox,
+      });
+    } else {
+      await this.performUnreliableAction({
+        elementToUncheck: this.nonCollectionCheckbox,
+      });
+    }
     if (details.nonCollection && details.nonCollectionSumInsured) {
       await this.nonCollectionSumInsured.fill(
         details.nonCollectionSumInsured.toString()
       );
     }
-    await this.setCheckboxWithResilience(
-      this.spoilageOrContaminationCheckbox,
-      details.spoilageOrContamination
-    );
-    await this.setCheckboxWithResilience(
-      this.naturalHazardCheckbox,
-      details.naturalHazard
-    );
+    if (details.spoilageOrContamination) {
+      await this.performUnreliableAction({
+        elementToCheck: this.spoilageOrContaminationCheckbox,
+      });
+    } else {
+      await this.performUnreliableAction({
+        elementToUncheck: this.spoilageOrContaminationCheckbox,
+      });
+    }
+    if (details.naturalHazard) {
+      await this.performUnreliableAction({
+        elementToCheck: this.naturalHazardCheckbox,
+      });
+    } else {
+      await this.performUnreliableAction({
+        elementToUncheck: this.naturalHazardCheckbox,
+      });
+    }
 
     await this.page.keyboard.press("Tab");
-    await this.page.waitForTimeout(250);
-    await this.okCancelButtons.okButton.click();
+    await this.performUnreliableAction({
+      elementToClick: this.okCancelButtons.okButton,
+      elementToLookFor: this.page.getByRole("button", { name: "Add Contents" }),
+      timeout: 1000
+    });
   }
 }

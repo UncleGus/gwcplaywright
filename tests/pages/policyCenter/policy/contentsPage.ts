@@ -6,6 +6,11 @@ import { MilkContentsDetailsPage } from "./contentsDetailsPages/milkContentsDeta
 
 export class ContentsPage extends PolicyCenterPage {
   titleText = /Guidewire PolicyCenter \(.+\) Contents$/;
+  sideNav = {
+    newClientCustomisedPricingEntry: this.page.getByRole("menuitem", {
+      name: "New Client Customised Pricing",
+    }),
+  };
   createSubmissionNav = new CreateSubmissionNav(this.page);
   addContentsDropdown = this.page.getByRole("button", { name: "Add Contents" });
   addContentsMenuPrimary = (menuOption: "Domestic" | "Commercial" | "Farm") =>

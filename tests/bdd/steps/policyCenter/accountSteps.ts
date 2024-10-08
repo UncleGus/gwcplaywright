@@ -1,9 +1,9 @@
-import contactData from "../../data/contact.json";
-import addressData from "../../data/address.json";
-import { Given, When, Then } from "../../fixtures";
-import { Address } from "../../models/address";
-import { Contact } from "../../models/contact";
-import { AccountType, chance } from "../../pages/generic/basePage";
+import contactData from "../../../data/contact.json";
+import addressData from "../../../data/address.json";
+import { Given, When, Then } from "../../../fixtures";
+import { Address } from "../../../models/address";
+import { Contact } from "../../../models/contact";
+import { AccountType, chance } from "../../../pages/generic/basePage";
 
 Given(
   /I start to create a new account of type (Collective Wizard|Collective|Company|Person|From Address Book)/,
@@ -15,10 +15,13 @@ Given(
     await policyCenterPage.headerNav.accountMenu.newAccount.click();
     await enterAccountInformationPage.applicantName.fill("Gregory Griggs");
     await enterAccountInformationPage.page.keyboard.press("Enter");
-    await enterAccountInformationPage.openUnreliableDropown(
-      enterAccountInformationPage.createNewAccountButton,
-      enterAccountInformationPage.createNewAccountMenu(accountType)
-    );
+    await enterAccountInformationPage.performUnreliableAction({
+      elementToClick: enterAccountInformationPage.createNewAccountButton,
+      elementToLookFor:
+        enterAccountInformationPage.createNewAccountMenu(accountType),
+      errorMessage: "Couldn't open create new account button menu",
+      timeout: 1000,
+    });
     await enterAccountInformationPage.createNewAccountMenu(accountType).click();
   }
 );
@@ -118,7 +121,7 @@ Given(
     policyCenterPage,
     accountSummaryPage,
     accountFileGeneralInsuranceQuestionsPage,
-    global,
+    globalData: global,
   }) => {
     await policyCenterPage.headerNav.accountButton.click();
     await accountSummaryPage.confirmNavigation();

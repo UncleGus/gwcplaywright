@@ -14,3 +14,4 @@ Background:
 Scenario: Policy renewal for Buildings and Contents
   Given the policy defined in the background
   When I start the batch renew process and return to the account summary
+  Then the policy is renewed

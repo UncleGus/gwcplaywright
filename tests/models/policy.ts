@@ -3,6 +3,7 @@ import environments from "../../config/environments.json";
 import { MilkContents } from "./milkContents";
 
 export class Policy {
+  number: string;
   policyType: PolicyType;
   termType: TermType;
   transactionEffectiveDate: string;
@@ -16,12 +17,17 @@ export class Policy {
   farmContentsCoverables: FarmContentsCoverable[] = [];
   lossRatio: number;
 
-  constructor() {
+  constructor(data?: any) {
     const validSoldByOptions = environments[process.env.GALAXY].soldBy;
     this.soldByRole = <SoldByRole>(
       validSoldByOptions[Math.floor(Math.random() * validSoldByOptions.length)]
     );
     this.lossRatio = Math.floor(Math.random() * 20) + 1;
+    if (data) {
+      for (const key in data) {
+        this[key] = data[key];
+      }
+    }
   }
 }
 

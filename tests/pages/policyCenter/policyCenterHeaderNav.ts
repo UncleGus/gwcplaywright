@@ -21,7 +21,7 @@ export class PolicyCenterHeaderNav {
   teamExpander: Locator;
   administrationButton: Locator;
   administrationExpander: Locator;
-  
+
   constructor(page: Page) {
     this.page = page;
     this.desktopButton = this.page.getByRole("menuitem", { name: "Desktop" });
@@ -37,14 +37,19 @@ export class PolicyCenterHeaderNav {
     );
     this.accountMenu = {
       newAccount: this.page.getByRole("menuitem", { name: "New Account" }),
-    }
+    };
     this.policyButton = this.page.getByRole("menuitem", { name: "Policy" });
     this.policyExpander = this.page.locator(
       "#TabBar-PolicyTab > .gw-action--expand-button > .gw-icon"
     );
     this.policyMenu = {
-      newSubmission: this.page.getByRole("menuitem", { name: "New Submission" }),
-    }
+      newSubmission: this.page.getByRole("menuitem", {
+        name: "New Submission",
+      }),
+      policySearchField: this.page.locator(
+        'input[name="TabBar-PolicyTab-PolicyTab_PolicyRetrievalItem"]'
+      ),
+    };
     this.contactButton = this.page.getByRole("menuitem", { name: "Contact" });
     this.contactExpander = this.page.locator(
       "#TabBar-ContactTab > .gw-action--expand-button > .gw-icon"

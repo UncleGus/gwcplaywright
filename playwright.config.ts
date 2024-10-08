@@ -11,13 +11,22 @@ expect(validEnvironments, environmentErrorMessage).toContain(
 );
 console.log(`Using environment ${process.env.GALAXY}`);
 
-const testDir = defineBddConfig({
-  features: "tests/features/**/*.feature",
-  steps: "tests/**/*.ts",
+const bddTestDir = defineBddConfig({
+  features: "tests/bdd/features/*.feature",
+  steps: "tests/bdd/steps/**/*.ts",
 });
 
 export default defineConfig({
-  testDir,
+  projects: [
+    {
+      name: "bdd",
+      testDir: bddTestDir,
+    },
+    {
+      name: "non-bdd",
+      testDir: "tests/nonbdd",
+      use: { browserName: "chromium", viewport: { width: 1280, height: 880 } },
+    },
+  ],
   reporter: "html",
-  use: { browserName: "chromium", viewport: { width: 1280, height: 880 } },
 });

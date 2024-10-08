@@ -27,46 +27,55 @@ export class BasePage {
     });
   }
 
-  async openUnreliableDropown(
-    dropdownElement: Locator,
-    revealedElement: Locator
-  ) {
+  async performUnreliableAction(actionDetails: UnreliableAction) {
     let attempts = 0;
-    while (!(await revealedElement.isVisible()) && attempts < 5) {
-      await dropdownElement.click();
-      await this.page.waitForTimeout(100);
-      attempts++;
-    }
-    if (attempts > 4) {
+    if (
+      !(
+        actionDetails.elementToClick ||
+        actionDetails.elementToCheck ||
+        actionDetails.elementToUncheck
+      )
+    ) {
       throw new Error(
-        `Made ${attempts} attempts at clicking this dropdown without success`
+        "No action to perform; must supply one of elementToClick, elementToCheck, elementToUncheck"
       );
     }
-  }
-
-  async setCheckboxWithResilience(element: Locator, checked: boolean) {
-    let attempts = 3;
-    while (attempts > 0) {
+    do {
       try {
-        checked ? await element.check() : await element.uncheck();
-        attempts = 0;
+        console.log(`Attempt ${attempts + 1} at performing action`);
+        if (actionDetails.elementToClick) {
+          await actionDetails.elementToClick.click({
+            timeout: actionDetails.timeout,
+          });
+        } else if (actionDetails.elementToCheck) {
+          await actionDetails.elementToCheck.check({
+            timeout: actionDetails.timeout,
+          });
+        } else if (actionDetails.elementToUncheck) {
+          await actionDetails.elementToUncheck.uncheck({
+            timeout: actionDetails.timeout,
+          });
+        }
+        console.log("Checking success");
+        if (actionDetails.elementToLookFor) {
+          await expect(actionDetails.elementToLookFor).toBeVisible({
+            timeout: actionDetails.timeout,
+          });
+        } else if (actionDetails.validationFunction) {
+          await actionDetails.validationFunction;
+        }
+        console.log("Attempt successful");
+        attempts = actionDetails.numberOfAttempts;
       } catch (error) {
-        if (
-          error.message.includes(
-            "Clicking the checkbox did not change its state"
-          )
-        ) {
-          attempts--;
-          if (attempts < 1) {
-            throw new Error(
-              "Too many unsuccessful attempts at clicking the checkbox"
-            );
-          }
-        } else {
-          throw error;
+        console.log(error.message);
+        attempts++;
+        if (attempts >= (actionDetails.numberOfAttempts || 3)) {
+          throw new Error(actionDetails.errorMessage + "\n" + error.message);
+        } else if (actionDetails.errorFunction) {
+          await actionDetails.errorFunction;
         }
       }
-    }
+    } while (attempts < (actionDetails.numberOfAttempts || 3));
   }
 }
 
@@ -90,4 +99,16 @@ export function formatDate(date: Date) {
     "/" +
     date.getFullYear()
   );
+}
+
+export interface UnreliableAction {
+  elementToClick?: Locator;
+  elementToCheck?: Locator;
+  elementToUncheck?: Locator;
+  elementToLookFor?: Locator;
+  validationFunction?: Promise<any>;
+  errorFunction?: Promise<any>;
+  numberOfAttempts?: number;
+  errorMessage?: string;
+  timeout?: number;
 }
