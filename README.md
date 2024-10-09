@@ -1,5 +1,5 @@
 # gwcplaywright
-Video link: [01 Overview](https://fmgmscloud.sharepoint.com/:v:/t/PRJ.GuidewireCloudUpgrade/EcikoGi212ZLmcdGeTRqJ_YB6eQGN_sWcYUIxuLI-bbGww?e=5OcVQh)
+Video link: [01 Overview](https://fmgmscloud.sharepoint.com/:v:/t/PRJ.GuidewireCloudUpgrade/EfG6GZWXwDtCrm5Un7keXAoBiHtsgz-lWsJ2ADFbI4eR4Q?e=CaUESp)
 
 ## Setup
 Video link: [02 Setup](placeholder)
