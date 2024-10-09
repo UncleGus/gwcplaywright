@@ -29,7 +29,7 @@ The Playwright test runner can detect multiple config files and projects, which 
 3. deselect `playwrightxray.config.ts`
 
 ## bddgen
-Video link: [03 bddgen](placeholder)
+Video link: [03 bddgen](https://fmgmscloud.sharepoint.com/:v:/t/PRJ.GuidewireCloudUpgrade/EdQ0RncVBjlLlk3BDqrG7OwBMGSrTrnlwJPzJ-pVBMD7Eg?e=x2drVw)
 
 `bddgen` is a node package used to generate Playwright tests from Cucumber feature files. Using this package with Cucumber gives us all the convenience of autocomplete Gherkin steps, looking up step defintions, generating step code snippets, etc. alongside all of the funtionality of Playwright.<br>
 To generate the Playwright tests from the feature files, in a terminal run:
