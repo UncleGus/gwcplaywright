@@ -2,7 +2,7 @@ import "dotenv/config";
 import environments from "../../config/environments.json";
 import { MilkContents } from "./milkContents";
 
-export class Policy {
+export class Policy implements PolicyModel {
   number: string;
   policyType: PolicyType;
   termType: TermType;
@@ -17,7 +17,7 @@ export class Policy {
   farmContentsCoverables: FarmContentsCoverable[] = [];
   lossRatio: number;
 
-  constructor(data?: any) {
+  constructor(data?: PolicyModel) {
     const validSoldByOptions = environments[process.env.GALAXY].soldBy;
     this.soldByRole = <SoldByRole>(
       validSoldByOptions[Math.floor(Math.random() * validSoldByOptions.length)]
@@ -29,6 +29,22 @@ export class Policy {
       }
     }
   }
+}
+
+export interface PolicyModel {
+  number?: string;
+  policyType?: PolicyType;
+  termType?: TermType;
+  transactionEffectiveDate?: string;
+  soldByRole?: SoldByRole;
+  vehiclesAndImplementsCoverables?: VehiclesAndImplementsCoverableName[];
+  buildingsAndContentsCoverables?: BuildingsAndContentsCoverableName[];
+  liabilityCoverable?: boolean;
+  otherRisksCoverables?: OtherRisksCoverableName[];
+  domesticContentsCoverable?: boolean;
+  commercialContentsCoverables?: CommercialContentsCoverable[];
+  farmContentsCoverables?: FarmContentsCoverable[];
+  lossRatio?: number;
 }
 
 export type PolicyType = "Renewing" | "Non renewing";
@@ -93,18 +109,6 @@ export type FarmContentsCoverableName =
   | "Deer Velvet"
   | "Beehives"
   | "Drones";
-
-// export enum FarmContentsCoverableName { // I can't remember why I turned this into an enum, I was experimenting with something
-//   "General Farm Contents",
-//   "Milk",
-//   "Refrigerated Goods",
-//   "Baled Hay",
-//   "Harvested farm produce intended for sale",
-//   "Baled Wool",
-//   "Deer Velvet",
-//   "Beehives",
-//   "Drones",
-// }
 
 export type FarmContentsCoverable = MilkContents;
 

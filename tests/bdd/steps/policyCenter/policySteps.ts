@@ -1,5 +1,4 @@
-import { expect } from "@playwright/test";
-import { Given, When, Then } from "../../../fixtures";
+import { Given, When, Then, test } from "../../../fixtures/actionFixtures";
 import { MilkContents } from "../../../models/milkContents";
 import {
   BuildingsAndContentsCoverableName,
@@ -11,6 +10,7 @@ import { formatDate } from "../../../pages/generic/basePage";
 
 Given("I have a policy", async ({ globalData }) => {
   globalData.policy = globalData.policy || new Policy();
+  test.setTimeout(180000);
 });
 
 Given(
@@ -84,11 +84,6 @@ Then(
     await viewPolicySummary(globalData.policy.number);
     await policySummaryPage.sideNav.workOrders.click();
     await workOrdersPage.confirmNavigation();
-    await expect(async () => {
-      await workOrdersPage.page.reload();
-      await expect(
-        await workOrdersPage.submissionStatusCell("Renewal")
-      ).toBeVisible();
-    }).toPass();
+    await workOrdersPage.confirmPolicyRenewal();
   }
 );

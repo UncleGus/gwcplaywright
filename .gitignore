@@ -4,5 +4,6 @@ package-lock.json
 playwright-report
 test-results
 .features-gen
-.vscode/
 .idea/
+xray-payload.json
+playwright-xray-error.log

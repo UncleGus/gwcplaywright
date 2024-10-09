@@ -28,5 +28,7 @@ export default defineConfig({
       use: { browserName: "chromium", viewport: { width: 1280, height: 880 } },
     },
   ],
-  reporter: "html",
+  reporter: [
+    ["html"],
+  ],
 });

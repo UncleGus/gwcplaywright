@@ -1,4 +1,4 @@
-import { Given, When, Then } from "../../fixtures";
+import { Given, When, Then } from "../../fixtures/actionFixtures";
 import { LoginPage } from "../../pages/generic/loginPage";
 import { CenterName, User } from "../../pages/generic/basePage";
 

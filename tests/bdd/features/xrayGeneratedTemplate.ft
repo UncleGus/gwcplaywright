@@ -1,0 +1,17 @@
+@REQ_<story's parent feature jira id>
+Feature: <story's parent feature name>
+
+	Background:
+		#@PRECOND_<precondition jira id>
+	  Given I am logged in
+
+	#<test description>
+	@TEST_<test jira id> @REQ_<story jira id>
+	Scenario: This is a cucumber test for This is a story
+		Feature: This is a feature
+		  
+		  Scenario: A thing that happens
+		    Given I have a particular setup
+		    When I perform the action
+		    Then A thing happens
+		

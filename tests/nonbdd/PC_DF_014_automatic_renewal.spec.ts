@@ -1,4 +1,4 @@
-import { test } from "../fixtures";
+import { test } from "../fixtures/actionFixtures";
 import { expect } from "@playwright/test";
 import { MilkContents } from "../models/milkContents";
 import { Policy } from "../models/policy";
@@ -34,7 +34,7 @@ test.beforeEach(
   }
 );
 
-test("Automatic renewal of policy", async ({
+test("DEMO-346 | Automatic renewal of policy", async ({
   startPolicyRenewalBatchProcess,
   globalData,
   viewPolicySummary,
@@ -46,10 +46,5 @@ test("Automatic renewal of policy", async ({
   await viewPolicySummary(globalData.policy.number);
   await policySummaryPage.sideNav.workOrders.click();
   await workOrdersPage.confirmNavigation();
-  await expect(async () => {
-    await workOrdersPage.page.reload();
-    await expect(
-      await workOrdersPage.submissionStatusCell("Renewal")
-    ).toBeVisible({ timeout: 30000 });
-  }).toPass({ timeout: 180000 });
+  await workOrdersPage.confirmPolicyRenewal();
 });

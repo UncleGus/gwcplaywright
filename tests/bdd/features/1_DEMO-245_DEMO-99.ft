@@ -1,0 +1,17 @@
+@REQ_DEMO-245
+Feature: Feature: User Authentication (DEMO)
+
+	Background:
+		#@PRECOND_DEMO-99
+	  Given I am logged in
+
+	#Some kind of description.
+	@TEST_DEMO-112 @REQ_DEMO-233
+	Scenario: This is a cucumber test for This is a story
+		Feature: This is a feature
+		  
+		  Scenario: A thing that happens
+		    Given I have a particular setup
+		    When I perform the action
+		    Then A thing happens
+		

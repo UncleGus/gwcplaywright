@@ -4,7 +4,7 @@ import { makeNote } from "./contact";
 import { ContentsCoverableName } from "./policy";
 import { Contents } from "./contents";
 
-export class MilkContents extends Contents {
+export class MilkContents extends Contents implements MilkContentsModel {
   // details
   contentsType = <ContentsCoverableName>"Milk";
   contentsIsMigrated: boolean;
@@ -27,7 +27,7 @@ export class MilkContents extends Contents {
   spoilageOrContamination: boolean;
   naturalHazard: boolean;
 
-  constructor(data?: any) {
+  constructor(data?: MilkContentsModel) {
     super();
     this.contentsIsMigrated = chance();
     if (chance()) {
@@ -88,6 +88,29 @@ export class MilkContents extends Contents {
         );
     }
   }
+}
+
+export interface MilkContentsModel {
+  // details
+  contentsIsMigrated?: boolean;
+  clientDescription?: string;
+  typeOfOperator?: TypeOfOperator;
+  sharemilkingAgreement?: SharemilkingAgreement;
+  additionalDetails?: string;
+  locationOfMilk?: string;
+  facultativeReinsurance?: boolean;
+
+  // coverages
+  vatSize?: number;
+  milkSolids?: number;
+  milkPayout?: number;
+  sumInsured?: number;
+  voluntaryExcess?: VoluntaryExcess;
+  imposedExcess?: number;
+  nonCollection?: boolean;
+  nonCollectionSumInsured?: number;
+  spoilageOrContamination?: boolean;
+  naturalHazard?: boolean;
 }
 
 export type TypeOfOperator =

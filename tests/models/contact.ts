@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { chance, formatDate } from "../pages/generic/basePage";
 
-export class Contact {
+export class Contact implements ContactModel {
   title: Title;
   firstName: string;
   middleName?: string;
@@ -15,7 +15,7 @@ export class Contact {
   noEmailAddressReason: NoEmailAddressReason;
   mailName: string;
 
-  constructor(data?: any) {
+  constructor(data?: ContactModel) {
     const gender: "male" | "female" = Math.random() > 0.5 ? "male" : "female";
     if (gender == "male") {
       this.title = <Title>(
@@ -113,6 +113,21 @@ export class Contact {
       }
     }
   }
+}
+
+export interface ContactModel {
+  title?: Title;
+  firstName?: string;
+  middleName?: string;
+  lastName?: string;
+  preferredName?: string;
+  contactSalutation?: string;
+  dateOfBirth?: string;
+  phoneNumbers?: PhoneNumber[];
+  emailPrimary?: EmailAddress;
+  emailSecondary?: EmailAddress;
+  noEmailAddressReason?: NoEmailAddressReason;
+  mailName?: string;
 }
 
 type Title =

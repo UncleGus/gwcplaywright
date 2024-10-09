@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker";
 import postCodes from "../data/postcodes.json";
 import { chance } from "../pages/generic/basePage";
 
-export class Address {
+export class Address implements AddressModel {
   careOfName: string;
   propertyFarmName: string;
   addressLine1: string;
@@ -15,7 +15,7 @@ export class Address {
   addressType: string;
   addressDecription: string;
 
-  constructor(data?: any) {
+  constructor(data?: AddressModel) {
     this.careOfName = chance() ? faker.person.fullName() : null;
     this.propertyFarmName = chance() ? faker.company.name() : null;
     this.addressLine1 = faker.location.streetAddress();
@@ -39,4 +39,18 @@ export class Address {
       }
     }
   }
+}
+
+export interface AddressModel {
+  careOfName?: string;
+  propertyFarmName?: string;
+  addressLine1?: string;
+  addressLine2?: string;
+  addressLine3?: string;
+  townCity?: string;
+  postcode?: string;
+  country?: string;
+  isRural?: boolean;
+  addressType?: string;
+  addressDecription?: string;
 }
