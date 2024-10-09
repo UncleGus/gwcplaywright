@@ -6,6 +6,7 @@ export class BankDetailsPage extends PolicyCenterPage {
   titleText = /Guidewire PolicyCenter \(.+\) Bank Details/;
   bankAccountNameField = this.page.getByLabel("Bank account name");
   bankAccountNumberField = this.page.getByPlaceholder("##-####-#######-###");
+  bankAccountBranchField = this.page.locator('input[name*="BankBranch"]');
   updateButton = this.page.getByRole("button", { name: "Update" });
 
   constructor(page: Page) {
@@ -13,7 +14,7 @@ export class BankDetailsPage extends PolicyCenterPage {
   }
 
   async enterBankAccountNumber(accountNumber?: string) {
-    await this.bankAccountNumberField.fill(
+    await this.bankAccountNumberField.pressSequentially(
       accountNumber || getRandomBankAccount()
     );
   }

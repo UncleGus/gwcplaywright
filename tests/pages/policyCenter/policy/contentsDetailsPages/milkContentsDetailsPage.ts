@@ -1,4 +1,4 @@
-import test, { Page } from "@playwright/test";
+import { Page } from "@playwright/test";
 import { ContentsDetailsPage } from "./contentsDetailsPage";
 import { ContentsCoverableName, Policy } from "../../../../models/policy";
 import { OkCancelButtons } from "../../../generic/okCancelButtons";

@@ -1,4 +1,4 @@
-import { expect, Page } from "@playwright/test";
+import { Page } from "@playwright/test";
 import { PolicyCenterPage } from "../policyCenterPage";
 
 export class MyActivitiesPage extends PolicyCenterPage {

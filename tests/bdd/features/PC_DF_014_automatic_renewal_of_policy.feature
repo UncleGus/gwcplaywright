@@ -13,5 +13,5 @@ Background:
 @PC_DF_014
 Scenario: Policy renewal for Buildings and Contents
   Given the policy defined in the background
-  When I start the batch renew process and return to the account summary
+  When I start the batch renew process and return to PolicyCenter
   Then the policy is renewed

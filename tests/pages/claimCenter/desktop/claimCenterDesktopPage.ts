@@ -1,4 +1,4 @@
-import { expect, Locator, Page } from "@playwright/test";
+import { Page } from "@playwright/test";
 import { ClaimCenterBasePage } from "../claimCenterBasePage";
 
 export class ClaimCenterDesktopPage extends ClaimCenterBasePage {

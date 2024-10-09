@@ -1,6 +1,6 @@
 {
   "cucumber.features": [
     
-    "tests/features/**/*.feature"],
-  "cucumber.glue": ["tests/steps/**/*.ts"]
+    "tests/bdd/features/**/*.feature"],
+  "cucumber.glue": ["tests/bdd/steps/**/*.ts"]
 }

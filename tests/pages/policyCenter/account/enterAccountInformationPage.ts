@@ -1,4 +1,4 @@
-import { Locator, Page } from "@playwright/test";
+import { Page } from "@playwright/test";
 import { PolicyCenterPage } from "../policyCenterPage";
 import { AccountType } from "../../generic/basePage";
 

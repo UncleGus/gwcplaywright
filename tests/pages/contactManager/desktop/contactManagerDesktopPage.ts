@@ -1,4 +1,4 @@
-import { expect, Page } from "@playwright/test";
+import { Page } from "@playwright/test";
 import { ContactManagerBasePage } from "../contactManagerBasePage";
 
 export class ContactManagerDesktopPage extends ContactManagerBasePage {

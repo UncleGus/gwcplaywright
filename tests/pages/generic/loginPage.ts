@@ -1,4 +1,4 @@
-import { expect, Locator, Page } from "@playwright/test";
+import { expect, Page } from "@playwright/test";
 import users from "../../data/user.json";
 import environments from "../../../config/environments.json";
 import { BasePage, CenterName, User } from "./basePage";
