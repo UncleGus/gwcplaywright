@@ -1,6 +1,6 @@
-import { Given, When, Then } from "../../fixtures/actionFixtures";
-import { LoginPage } from "../../pages/generic/loginPage";
-import { CenterName, User } from "../../pages/generic/basePage";
+import { Given, When, Then } from "../../../fixtures/actionFixtures";
+import { LoginPage } from "../../../pages/generic/loginPage";
+import { CenterName, User } from "../../../pages/generic/basePage";
 
 // this can't be a fixture because it needs to take the centerName in as a parameter for the constructor
 let loginPage: LoginPage;
