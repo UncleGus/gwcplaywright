@@ -2,7 +2,7 @@
 Video link: [01 Overview](https://fmgmscloud.sharepoint.com/:v:/t/PRJ.GuidewireCloudUpgrade/EdoPqsiR-IVHmvCxzWXHjw0BoIFzQjSJ4z0659ZXHkvLPA?e=XMbddb)
 
 ## Setup
-Video link: [02 Setup](placeholder)
+Video link: [02 Setup](https://fmgmscloud.sharepoint.com/:v:/t/PRJ.GuidewireCloudUpgrade/Edm3woD1XztLkloLA73shA0BlvseqcLJGRygT5eNBi0Law?e=DEOItL)
 
 Create a file called ".env" in the root folder
 In it, put:
