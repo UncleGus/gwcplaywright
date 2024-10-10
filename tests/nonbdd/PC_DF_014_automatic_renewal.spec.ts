@@ -1,5 +1,4 @@
-import { test } from "../fixtures/actionFixtures";
-import { expect } from "@playwright/test";
+import { test } from "../fixtures";
 import { MilkContents } from "../models/milkContents";
 import { Policy } from "../models/policy";
 import { formatDate } from "../pages/generic/basePage";

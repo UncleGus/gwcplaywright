@@ -1,4 +1,4 @@
-import { Given, When, Then, test } from "../../../fixtures/actionFixtures";
+import { Given, When, Then, test } from "../../../fixtures";
 import { MilkContents } from "../../../models/milkContents";
 import {
   BuildingsAndContentsCoverableName,

@@ -1,10 +1,70 @@
 import { createBdd } from "playwright-bdd";
-import { CenterName, User } from "../pages/generic/basePage";
-import { LoginPage } from "../pages/generic/loginPage";
-import { test1 } from "./pageFixtures";
+import { test as _test } from "playwright-bdd";
 import { expect } from "@playwright/test";
+import { CenterName, User } from "./pages/generic/basePage";
+import { LoginPage } from "./pages/generic/loginPage";
+import { MySummaryPage } from "./pages/policyCenter/desktop/mySummaryPage";
+import { ClaimCenterDesktopPage } from "./pages/claimCenter/desktop/claimCenterDesktopPage";
+import { BillingCenterDesktopPage } from "./pages/billingCenter/desktop/billingCenterDesktopPage";
+import { ContactManagerDesktopPage } from "./pages/contactManager/desktop/contactManagerDesktopPage";
+import { PolicyCenterPage } from "./pages/policyCenter/policyCenterPage";
+import { EnterAccountInformationPage } from "./pages/policyCenter/account/enterAccountInformationPage";
+import { CreateAccountPage } from "./pages/policyCenter/account/createAccountPage";
+import { PrimaryActivitySearchPage } from "./pages/policyCenter/account/primaryActivitySearchPage";
+import { AccountSummaryPage } from "./pages/policyCenter/account/accountSummaryPage";
+import { NewSubmissionPage } from "./pages/policyCenter/policy/newSubmissionsPage";
+import { PolicyInfoPage } from "./pages/policyCenter/policy/policyInfoPage";
+import { Policy } from "./models/policy";
+import { LineSelectionPage } from "./pages/policyCenter/policy/lineSelectionPage";
+import { LocationsPage } from "./pages/policyCenter/policy/locationsPage";
+import { ContentsPage } from "./pages/policyCenter/policy/contentsPage";
+import { AccountFileGeneralInsuranceQuestionsPage } from "./pages/policyCenter/account/accountFileGeneralInsuranceQuestionsPage";
+import { NewClientCustomisedPricingEntryPage } from "./pages/policyCenter/policy/newClientCustomisedPricingEntryPage";
+import { QuotePage } from "./pages/policyCenter/policy/quotePage";
+import { BatchProcessInfoPage } from "./pages/policyCenter/policy/batchProcessInfoPage";
+import { MyActivitiesPage } from "./pages/policyCenter/desktop/myActivitiesPage";
+import { PaymentPage } from "./pages/policyCenter/policy/paymentPage";
+import { BankDetailsPage } from "./pages/policyCenter/policy/bankDetailsPage";
+import { PolicyCompletedPage } from "./pages/policyCenter/policy/policyCompletedPage";
+import { PolicySummaryPage } from "./pages/policyCenter/policy/policySummaryPage";
+import { WorkOrdersPage } from "./pages/policyCenter/policy/workOrdersPage";
 
-type ActionFixtures = {
+export type CustomFixtures = {
+  globalData: { currentAccountNumber?: string; policy?: Policy };
+
+  // policycenter pages
+  policyCenterPage: PolicyCenterPage;
+  policyCenterSummaryPage: MySummaryPage;
+  policyCenterMyActivitiesPage: MyActivitiesPage;
+  enterAccountInformationPage: EnterAccountInformationPage;
+  createAccountPage: CreateAccountPage;
+  primaryActivitySearchPage: PrimaryActivitySearchPage;
+  accountSummaryPage: AccountSummaryPage;
+  newSubmissionPage: NewSubmissionPage;
+  policyInfoPage: PolicyInfoPage;
+  lineSelectionPage: LineSelectionPage;
+  locationsPage: LocationsPage;
+  contentsPage: ContentsPage;
+  accountFileGeneralInsuranceQuestionsPage: AccountFileGeneralInsuranceQuestionsPage;
+  newClientCustomisedPricingEntryPage: NewClientCustomisedPricingEntryPage;
+  quotePage: QuotePage;
+  batchProcessInfoPage: BatchProcessInfoPage;
+  paymentPage: PaymentPage;
+  bankDetailsPage: BankDetailsPage;
+  policyCompletedPage: PolicyCompletedPage;
+  policySummaryPage: PolicySummaryPage;
+  workOrdersPage: WorkOrdersPage;
+
+  // claimcenter pages
+  claimCenterDesktopPage: ClaimCenterDesktopPage;
+
+  // billingcenter pages
+  billingCenterDesktopPage: BillingCenterDesktopPage;
+
+  // contactmanager pages
+  contactManagerDesktopPage: ContactManagerDesktopPage;
+
+  // functions
   loginToCenterAs: Function;
   findCompletedAccount: Function;
   createPolicy: Function;
@@ -12,10 +72,87 @@ type ActionFixtures = {
   viewPolicySummary: Function;
 };
 
-export const test = test1.extend<ActionFixtures>({
+export const test = _test.extend<CustomFixtures>({
+  globalData: async ({}, use) => {
+    await use({});
+  },
+  policyCenterPage: async ({ page }, use) => {
+    await use(new PolicyCenterPage(page));
+  },
+  policyCenterSummaryPage: async ({ page }, use) => {
+    await use(new MySummaryPage(page));
+  },
+  policyCenterMyActivitiesPage: async ({ page }, use) => {
+    await use(new MyActivitiesPage(page));
+  },
+  enterAccountInformationPage: async ({ page }, use) => {
+    await use(new EnterAccountInformationPage(page));
+  },
+  createAccountPage: async ({ page }, use) => {
+    await use(new CreateAccountPage(page));
+  },
+  primaryActivitySearchPage: async ({ page }, use) => {
+    await use(new PrimaryActivitySearchPage(page));
+  },
+  accountSummaryPage: async ({ page }, use) => {
+    await use(new AccountSummaryPage(page));
+  },
+  newSubmissionPage: async ({ page }, use) => {
+    await use(new NewSubmissionPage(page));
+  },
+  policyInfoPage: async ({ page }, use) => {
+    await use(new PolicyInfoPage(page));
+  },
+  lineSelectionPage: async ({ page }, use) => {
+    await use(new LineSelectionPage(page));
+  },
+  locationsPage: async ({ page }, use) => {
+    await use(new LocationsPage(page));
+  },
+  contentsPage: async ({ page }, use) => {
+    await use(new ContentsPage(page));
+  },
+  accountFileGeneralInsuranceQuestionsPage: async ({ page }, use) => {
+    await use(new AccountFileGeneralInsuranceQuestionsPage(page));
+  },
+  newClientCustomisedPricingEntryPage: async ({ page }, use) => {
+    await use(new NewClientCustomisedPricingEntryPage(page));
+  },
+  quotePage: async ({ page }, use) => {
+    await use(new QuotePage(page));
+  },
+  paymentPage: async ({ page }, use) => {
+    await use(new PaymentPage(page));
+  },
+  bankDetailsPage: async ({ page }, use) => {
+    await use(new BankDetailsPage(page));
+  },
+  policyCompletedPage: async ({ page }, use) => {
+    await use(new PolicyCompletedPage(page));
+  },
+  policySummaryPage: async ({ page }, use) => {
+    await use(new PolicySummaryPage(page));
+  },
+  workOrdersPage: async ({ page }, use) => {
+    await use(new WorkOrdersPage(page));
+  },
+  batchProcessInfoPage: async ({ page }, use) => {
+    await use(new BatchProcessInfoPage(page));
+  },
+
+  claimCenterDesktopPage: async ({ page }, use) => {
+    await use(new ClaimCenterDesktopPage(page));
+  },
+  billingCenterDesktopPage: async ({ page }, use) => {
+    await use(new BillingCenterDesktopPage(page));
+  },
+  contactManagerDesktopPage: async ({ page }, use) => {
+    await use(new ContactManagerDesktopPage(page));
+  },
+
   loginToCenterAs: async ({ page }, use) => {
     const loginToCenterAs = async (centerName: CenterName, user: User) => {
-      await test.step(`Log in to ${centerName} as ${user}`, async () => {
+      await _test.step(`Log in to ${centerName} as ${user}`, async () => {
         const loginPage = new LoginPage(page, centerName);
         await loginPage.navigateTo();
         await loginPage.enterCredentials(user);
@@ -33,7 +170,7 @@ export const test = test1.extend<ActionFixtures>({
     use
   ) => {
     const findCompletedAccount = async () => {
-      await test.step("Find an account with mandatory questions completed", async () => {
+      await _test.step("Find an account with mandatory questions completed", async () => {
         await policyCenterPage.headerNav.accountButton.click();
         await accountSummaryPage.confirmNavigation();
         globalData.currentAccountNumber =
@@ -69,7 +206,7 @@ export const test = test1.extend<ActionFixtures>({
     use
   ) => {
     const createPolicy = async () => {
-      await test.step("Create the policy via the UI", async () => {
+      await _test.step("Create the policy via the UI", async () => {
         await policyCenterPage.headerNav.policyExpander.click();
         await policyCenterPage.headerNav.policyMenu.newSubmission.click();
 
@@ -163,7 +300,7 @@ export const test = test1.extend<ActionFixtures>({
     use
   ) => {
     const startPolicyRenewalBatchProcess = async () => {
-      await test.step("Start the policy renewal batch process", async () => {
+      await _test.step("Start the policy renewal batch process", async () => {
         await page.keyboard.press("Alt+Shift+T");
 
         await batchProcessInfoPage.confirmNavigation();
@@ -193,7 +330,7 @@ export const test = test1.extend<ActionFixtures>({
     use
   ) => {
     const viewPolicySummary = async (policyNumber: string) => {
-      await test.step(`View summary for policy ${policyNumber}`, async () => {
+      await _test.step(`View summary for policy ${policyNumber}`, async () => {
         await policyCenterPage.headerNav.policyExpander.click();
         await policyCenterPage.headerNav.policyMenu.policySearchField.fill(
           policyNumber

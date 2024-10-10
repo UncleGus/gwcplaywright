@@ -1,5 +1,5 @@
 import { expect, Locator, Page } from "@playwright/test";
-import { test } from "../../fixtures/actionFixtures";
+import { test } from "../../fixtures";
 
 export class BasePage {
   page: Page;

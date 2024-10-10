@@ -1,6 +1,6 @@
 import contactData from "../../../data/contact.json";
 import addressData from "../../../data/address.json";
-import { Given, When, Then } from "../../../fixtures/actionFixtures";
+import { Given, When, Then } from "../../../fixtures";
 import { Address } from "../../../models/address";
 import { Contact } from "../../../models/contact";
 import { AccountType, chance } from "../../../pages/generic/basePage";

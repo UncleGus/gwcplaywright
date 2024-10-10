@@ -69,8 +69,8 @@ test("This is a test", async ({ page }) => {
 });
 ```
 In this example, `page` is an out-of-the-box fixture. Fixtures allow the test to only reference what is needed. In this framework, fixtures have been added to represent page objects and also functions that span across multiple pages.<br>
-When creating a new page object class, it will need to be added to the `pageFixtures.ts` file in the `fixtures` folder.<br>
-When adding functions, if the function is performed entirely on one page, add the function to that page object class. Otherwise, it will need to be added to the `actionFixtures.ts` file.
+When creating a new page object class, it will need to be added to the `fixtures.ts` file in the `tests` folder.<br>
+When adding functions, if the function is performed entirely on one page, add the function to that page object class. Otherwise, it will need to be added to the `fixtures.ts` file.
 
 ## Xray
 Video link: [05 Xray](https://fmgmscloud.sharepoint.com/:v:/t/PRJ.GuidewireCloudUpgrade/EcikoGi212ZLmcdGeTRqJ_YB6eQGN_sWcYUIxuLI-bbGww?e=5OcVQh)

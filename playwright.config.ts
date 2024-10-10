@@ -13,7 +13,7 @@ console.log(`Using environment ${process.env.GALAXY}`);
 
 const bddTestDir = defineBddConfig({
   features: "tests/bdd/features/*.feature",
-  steps: ["tests/bdd/steps/**/*.ts", "tests/fixtures/*.ts"],
+  steps: ["tests/bdd/steps/**/*.ts", "tests/fixtures.ts"],
 });
 
 export default defineConfig({

@@ -1,4 +1,4 @@
-import { Given, When, Then } from "../../../fixtures/actionFixtures";
+import { Given, When, Then } from "../../../fixtures";
 import { LoginPage } from "../../../pages/generic/loginPage";
 import { CenterName, User } from "../../../pages/generic/basePage";
 
@@ -28,7 +28,7 @@ Then(
       claimCenterDesktopPage,
       billingCenterDesktopPage,
       contactManagerDesktopPage,
-      policyCenterMyActivitiesPage
+      policyCenterMyActivitiesPage,
     },
     centerName: CenterName
   ) => {
@@ -38,7 +38,7 @@ Then(
         claimCenterDesktopPage,
         billingCenterDesktopPage,
         contactManagerDesktopPage,
-        policyCenterMyActivitiesPage
+        policyCenterMyActivitiesPage,
       },
       centerName
     );
@@ -62,7 +62,7 @@ Given(
       claimCenterDesktopPage,
       billingCenterDesktopPage,
       contactManagerDesktopPage,
-      policyCenterMyActivitiesPage
+      policyCenterMyActivitiesPage,
     },
     centerName: CenterName,
     user: User
@@ -76,7 +76,7 @@ Given(
         claimCenterDesktopPage,
         billingCenterDesktopPage,
         contactManagerDesktopPage,
-        policyCenterMyActivitiesPage
+        policyCenterMyActivitiesPage,
       },
       centerName
     );
@@ -89,7 +89,7 @@ async function waitForDashboard(
     claimCenterDesktopPage,
     billingCenterDesktopPage,
     contactManagerDesktopPage,
-    policyCenterMyActivitiesPage
+    policyCenterMyActivitiesPage,
   },
   centerName: CenterName
 ) {
