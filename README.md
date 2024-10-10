@@ -60,7 +60,7 @@ Each center contains a generic `{center}Page.ts` file which extends the `basePag
 The structure is then broken down according to the tabs at the top of the center page, such as `desktop`, `account`, `policy`, etc. The page objects are included here for each of the pages that exist within that tab.
 
 ## Fixtures as page object models and functions
-Video link: [04 Fixtures](https://fmgmscloud.sharepoint.com/:v:/t/PRJ.GuidewireCloudUpgrade/EcikoGi212ZLmcdGeTRqJ_YB6eQGN_sWcYUIxuLI-bbGww?e=5OcVQh)
+Video link: [04 Fixtures](https://fmgmscloud.sharepoint.com/:v:/t/PRJ.GuidewireCloudUpgrade/EeZvpPrfWeJEqtuMGd2lQ7ABSrDcF4AaWeNoWcG7CudCxA?e=dhb5Yi)
 
 Playwright uses a system called fixtures which allow for easy and succinct setup in the tests. Fixtures are what are defined in the test setup like so:
 ```

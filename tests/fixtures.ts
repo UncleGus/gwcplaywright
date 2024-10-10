@@ -170,22 +170,25 @@ export const test = _test.extend<CustomFixtures>({
     use
   ) => {
     const findCompletedAccount = async () => {
-      await _test.step("Find an account with mandatory questions completed", async () => {
-        await policyCenterPage.headerNav.accountButton.click();
-        await accountSummaryPage.confirmNavigation();
-        globalData.currentAccountNumber =
-          await accountSummaryPage.accountNumberDisplay.innerText();
-        if (
-          (await accountSummaryPage.sideNav.questions.innerText()).includes(
-            "Incomplete"
-          )
-        ) {
-          await accountSummaryPage.sideNav.questions.click();
+      await _test.step(
+        "Find an account with mandatory questions completed",
+        async () => {
+          await policyCenterPage.headerNav.accountButton.click();
+          await accountSummaryPage.confirmNavigation();
+          globalData.currentAccountNumber =
+            await accountSummaryPage.accountNumberDisplay.innerText();
+          if (
+            (await accountSummaryPage.sideNav.questions.innerText()).includes(
+              "Incomplete"
+            )
+          ) {
+            await accountSummaryPage.sideNav.questions.click();
 
-          await accountFileGeneralInsuranceQuestionsPage.confirmNavigation();
-          await accountFileGeneralInsuranceQuestionsPage.answerAllNo();
+            await accountFileGeneralInsuranceQuestionsPage.confirmNavigation();
+            await accountFileGeneralInsuranceQuestionsPage.answerAllNo();
+          }
         }
-      });
+      );
     };
     await use(findCompletedAccount);
   },
