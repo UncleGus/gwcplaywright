@@ -73,7 +73,7 @@ When creating a new page object class, it will need to be added to the `fixtures
 When adding functions, if the function is performed entirely on one page, add the function to that page object class. Otherwise, it will need to be added to the `fixtures.ts` file.
 
 ## Xray
-Video link: [05 Xray](https://fmgmscloud.sharepoint.com/:v:/t/PRJ.GuidewireCloudUpgrade/EcikoGi212ZLmcdGeTRqJ_YB6eQGN_sWcYUIxuLI-bbGww?e=5OcVQh)
+Video link: [05 Xray](https://fmgmscloud.sharepoint.com/:v:/t/PRJ.GuidewireCloudUpgrade/EfsV_CUcJrlIr0D9E0zPQ1MBRGqMYY9u02sSoJFOkQgkyQ?e=gAzLQc)
 
 This framework is designed to integrate with Xray for test management. To achieve this, the node package `playwright-xray` is used to add a reporter for generating the Xray formatted results and uploading them to Xray. One of the requirements of this reporter is that the test must have the associated Xray test ticket referenced at the start of the test name in the format `"{jira id} | "`, e.g.
 ```
